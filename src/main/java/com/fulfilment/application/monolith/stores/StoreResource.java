@@ -2,24 +2,19 @@ package com.fulfilment.application.monolith.stores;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fulfilment.application.monolith.stores.events.StorePostProcessingEvent;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PATCH;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import java.util.List;
 import org.jboss.logging.Logger;
+
+import java.util.List;
 
 @Path("stores")
 @ApplicationScoped
@@ -28,6 +23,9 @@ import org.jboss.logging.Logger;
 public class StoreResource {
 
   @Inject LegacyStoreManagerGateway legacyStoreManagerGateway;
+
+  @Inject
+  Event<StorePostProcessingEvent> storePostProcessingEvent;
 
   private static final Logger LOGGER = Logger.getLogger(StoreResource.class.getName());
 
@@ -55,7 +53,8 @@ public class StoreResource {
 
     store.persist();
 
-    legacyStoreManagerGateway.createStoreOnLegacySystem(store);
+   storePostProcessingEvent.fire(new StorePostProcessingEvent(store,
+           StorePostProcessingEvent.EventName.CREATE));
 
     return Response.ok(store).status(201).build();
   }
@@ -77,7 +76,8 @@ public class StoreResource {
     entity.name = updatedStore.name;
     entity.quantityProductsInStock = updatedStore.quantityProductsInStock;
 
-    legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+    storePostProcessingEvent.fire(new StorePostProcessingEvent(updatedStore,
+            StorePostProcessingEvent.EventName.UPDATE));
 
     return entity;
   }
@@ -104,7 +104,8 @@ public class StoreResource {
       entity.quantityProductsInStock = updatedStore.quantityProductsInStock;
     }
 
-    legacyStoreManagerGateway.updateStoreOnLegacySystem(updatedStore);
+    storePostProcessingEvent.fire(new StorePostProcessingEvent(updatedStore,
+            StorePostProcessingEvent.EventName.PATCH));
 
     return entity;
   }

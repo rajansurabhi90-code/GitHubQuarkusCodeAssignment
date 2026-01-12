@@ -1,11 +1,34 @@
 package com.fulfilment.application.monolith.warehouses.adapters.restapi;
 
-import com.warehouse.api.WarehouseResource;
-import com.warehouse.api.beans.Warehouse;
+//import com.warehouse.api.WarehouseResource;
+//import com.warehouse.api.beans.Warehouse;
+
+import com.fulfilment.application.monolith.warehouses.adapters.WarehouseResource;
+import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
+import com.fulfilment.application.monolith.warehouses.domain.usecases.*;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 public class WarehouseResourceImpl implements WarehouseResource {
+
+  private final CreateWarehouseUseCase createWarehouseUseCase;
+  private final ReplaceWarehouseUseCase replaceWarehouseUseCase;
+  private final ArchiveWarehouseUseCase archiveWarehouseUseCase;
+  private final GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase;
+  private final ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase;
+
+  public WarehouseResourceImpl(CreateWarehouseUseCase createWarehouseUseCase,
+                               ReplaceWarehouseUseCase replaceWarehouseUseCase,
+                               ArchiveWarehouseUseCase archiveWarehouseUseCase,
+                               GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase,
+                               ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase) {
+    this.createWarehouseUseCase = createWarehouseUseCase;
+    this.replaceWarehouseUseCase = replaceWarehouseUseCase;
+    this.archiveWarehouseUseCase = archiveWarehouseUseCase;
+    this.getWarehouseUnitByIdUseCase = getWarehouseUnitByIdUseCase;
+    this.archiveWarehouseUnitByIdUseCase = archiveWarehouseUnitByIdUseCase;
+  }
 
   @Override
   public List<Warehouse> listAllWarehousesUnits() {
@@ -14,19 +37,29 @@ public class WarehouseResourceImpl implements WarehouseResource {
 
   @Override
   public Warehouse createANewWarehouseUnit(@NotNull Warehouse data) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'createANewWarehouseUnit'");
+    createWarehouseUseCase.create(data);
+    return data;
+  }
+
+  @Override
+  public Warehouse replaceAWareHouseUnit(@NotNull Warehouse data) {
+    replaceWarehouseUseCase.replace(data);
+    return data;
+  }
+
+  @Override
+  public Warehouse archiveAWareHouseUnit(@NotNull Warehouse data) {
+    archiveWarehouseUseCase.archive(data);
+    return data;
   }
 
   @Override
   public Warehouse getAWarehouseUnitByID(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAWarehouseUnitByID'");
+    return getWarehouseUnitByIdUseCase.getWarehouseUnitById(id);
   }
 
   @Override
   public void archiveAWarehouseUnitByID(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'archiveAWarehouseUnitByID'");
+    archiveWarehouseUnitByIdUseCase.archiveWareHouseUnitById(id);
   }
 }

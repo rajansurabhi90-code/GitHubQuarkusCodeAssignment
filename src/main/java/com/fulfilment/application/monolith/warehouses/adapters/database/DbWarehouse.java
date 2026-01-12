@@ -1,10 +1,7 @@
 package com.fulfilment.application.monolith.warehouses.adapters.database;
 
-import jakarta.persistence.Cacheable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,17 +11,73 @@ public class DbWarehouse {
 
   @Id @GeneratedValue public Long id;
 
-  public String businessUnitCode;
+  private String businessUnitCode;
 
-  public String location;
+  private String location;
 
-  public Integer capacity;
+  private Integer capacity;
 
-  public Integer stock;
+  private Integer stock;
 
-  public LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 
-  public LocalDateTime archivedAt;
+  private LocalDateTime archivedAt;
 
   public DbWarehouse() {}
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setBusinessUnitCode(String businessUnitCode) {
+    this.businessUnitCode = businessUnitCode;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public void setCapacity(Integer capacity) {
+    this.capacity = capacity;
+  }
+
+  public void setStock(Integer stock) {
+    this.stock = stock;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setArchivedAt(LocalDateTime archivedAt) {
+    this.archivedAt = archivedAt;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getBusinessUnitCode() {
+    return businessUnitCode;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public Integer getCapacity() {
+    return capacity;
+  }
+
+  public Integer getStock() {
+    return stock;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getArchivedAt() {
+    return archivedAt;
+  }
 }

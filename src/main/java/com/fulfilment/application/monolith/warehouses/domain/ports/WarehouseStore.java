@@ -2,6 +2,8 @@ package com.fulfilment.application.monolith.warehouses.domain.ports;
 
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 
+import java.util.List;
+
 public interface WarehouseStore {
   void create(Warehouse warehouse);
 
@@ -9,5 +11,10 @@ public interface WarehouseStore {
 
   void remove(Warehouse warehouse);
 
-  Warehouse findByBusinessUnitCode(String buCode);
+  List<Warehouse> findByBusinessUnitCode(String buCode);
+
+  Warehouse getActiveWarehouse(List<Warehouse> warehouses);
+
+  long getNumberOfWarehousesForLocation(String location);
+  Warehouse findById(String id);
 }
