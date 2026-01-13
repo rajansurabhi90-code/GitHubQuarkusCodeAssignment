@@ -71,17 +71,6 @@ public class WarehouseRepositoryTest {
     }
 
     @Test
-    void testRemoveThrows() {
-        Warehouse warehouse = new Warehouse("BU3", "London", 1000, 500,
-                ZonedDateTime.now(), null);
-        UnsupportedOperationException ex = assertThrows(
-                UnsupportedOperationException.class,
-                () -> repository.remove(warehouse)
-        );
-        assertEquals("Unimplemented method 'remove'", ex.getMessage());
-    }
-
-    @Test
     @Transactional
     void testFindByBusinessUnitCode() {
         repository.create(new Warehouse("BU4", "Rome", 500, 200,

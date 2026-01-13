@@ -18,19 +18,22 @@ public class WarehouseResourceImpl implements WarehouseResource {
   private final GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase;
   private final ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase;
   private final ListAllWarehouseUseCase listAllWarehouseUseCase;
+  private final RemoveWarehouseUseCase removeWarehouseUseCase;
 
   public WarehouseResourceImpl(CreateWarehouseUseCase createWarehouseUseCase,
                                ReplaceWarehouseUseCase replaceWarehouseUseCase,
                                ArchiveWarehouseUseCase archiveWarehouseUseCase,
                                GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase,
                                ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase,
-                               ListAllWarehouseUseCase listAllWarehouseUseCase) {
+                               ListAllWarehouseUseCase listAllWarehouseUseCase,
+                               RemoveWarehouseUseCase removeWarehouseUseCase) {
     this.createWarehouseUseCase = createWarehouseUseCase;
     this.replaceWarehouseUseCase = replaceWarehouseUseCase;
     this.archiveWarehouseUseCase = archiveWarehouseUseCase;
     this.getWarehouseUnitByIdUseCase = getWarehouseUnitByIdUseCase;
     this.archiveWarehouseUnitByIdUseCase = archiveWarehouseUnitByIdUseCase;
     this.listAllWarehouseUseCase = listAllWarehouseUseCase;
+    this.removeWarehouseUseCase = removeWarehouseUseCase;
   }
 
   @Override
@@ -64,5 +67,11 @@ public class WarehouseResourceImpl implements WarehouseResource {
   @Override
   public void archiveAWarehouseUnitByID(String id) {
     archiveWarehouseUnitByIdUseCase.archiveWareHouseUnitById(id);
+  }
+
+  @Override
+  public  Warehouse removeAWareHouseUnit(@NotNull Warehouse data) {
+    removeWarehouseUseCase.remove(data);
+  return data;
   }
 }

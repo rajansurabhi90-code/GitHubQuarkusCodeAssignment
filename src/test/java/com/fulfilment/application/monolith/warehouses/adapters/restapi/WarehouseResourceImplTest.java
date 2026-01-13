@@ -30,6 +30,9 @@ public class WarehouseResourceImplTest {
   @InjectMock
   ListAllWarehouseUseCase listAllWarehouseUseCase;
 
+  @InjectMock
+  RemoveWarehouseUseCase removeWarehouseUseCase;
+
   private WarehouseResourceImpl warehouseResourceImpl;
 
   @BeforeEach
@@ -40,7 +43,8 @@ public class WarehouseResourceImplTest {
             archiveWarehouseUseCase,
             getWarehouseUnitByIdUseCase,
             archiveWarehouseUnitByIdUseCase,
-            listAllWarehouseUseCase
+            listAllWarehouseUseCase,
+            removeWarehouseUseCase
     );
   }
 
@@ -67,6 +71,14 @@ public class WarehouseResourceImplTest {
             "ZWOLLE-001", 50, 10, null, null);
     warehouseResourceImpl.archiveAWareHouseUnit(warehouse);
     verify(archiveWarehouseUseCase).archive(warehouse);
+  }
+
+  @Test
+  public void testWhenRemoveAWarehouseUnitSuccess() {
+    Warehouse warehouse = new Warehouse("MHW.000",
+            "ZWOLLE-001", 50, 10, null, null);
+    warehouseResourceImpl.removeAWareHouseUnit(warehouse);
+    verify(removeWarehouseUseCase).remove(warehouse);
   }
 
   @Test
