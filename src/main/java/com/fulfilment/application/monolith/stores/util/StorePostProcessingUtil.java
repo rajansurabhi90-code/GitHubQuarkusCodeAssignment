@@ -7,7 +7,7 @@ import jakarta.inject.Inject;
 @ApplicationScoped
 public class StorePostProcessingUtil {
     @Inject
-    LegacyStoreManagerGateway legacyStoreManagerGateway;
+    public LegacyStoreManagerGateway legacyStoreManagerGateway;
 
     public void postProcess(StorePostProcessingEvent storePostProcessingEvent) {
         switch (storePostProcessingEvent.getEventName()) {

@@ -17,4 +17,5 @@ public interface WarehouseStore {
 
   long getNumberOfWarehousesForLocation(String location);
   Warehouse findById(String id);
+  List<Warehouse> findAllWarehouses();
 }

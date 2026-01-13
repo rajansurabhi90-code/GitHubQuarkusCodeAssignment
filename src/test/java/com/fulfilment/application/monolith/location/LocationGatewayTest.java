@@ -28,4 +28,13 @@ public class LocationGatewayTest {
             () -> locationGateway.resolveByIdentifier("ZWOLLE-182"));
     assertTrue(ex.getMessage().contains("Identifier Not found"));
   }
+
+  @Test
+  public void shouldFailWhenIdentifierEmpty() {
+    LocationGateway locationGateway = new LocationGateway();
+
+    RuntimeException ex = assertThrows(RuntimeException.class,
+            () -> locationGateway.resolveByIdentifier(""));
+    assertTrue(ex.getMessage().contains("Identifier cannot be empty"));
+  }
 }

@@ -80,6 +80,10 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
         return null;
     }
 
+    @Override
+    public List<Warehouse> findAllWarehouses() {
+        return getWarehouseList(listAll());
+    }
 
     private DbWarehouse entityFromWareHouse(Warehouse warehouse) {
         DbWarehouse entity = new DbWarehouse();

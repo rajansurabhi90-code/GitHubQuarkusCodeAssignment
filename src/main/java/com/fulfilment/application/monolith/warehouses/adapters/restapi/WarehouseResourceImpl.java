@@ -17,22 +17,25 @@ public class WarehouseResourceImpl implements WarehouseResource {
   private final ArchiveWarehouseUseCase archiveWarehouseUseCase;
   private final GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase;
   private final ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase;
+  private final ListAllWarehouseUseCase listAllWarehouseUseCase;
 
   public WarehouseResourceImpl(CreateWarehouseUseCase createWarehouseUseCase,
                                ReplaceWarehouseUseCase replaceWarehouseUseCase,
                                ArchiveWarehouseUseCase archiveWarehouseUseCase,
                                GetWarehouseUnitByIdUseCase getWarehouseUnitByIdUseCase,
-                               ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase) {
+                               ArchiveWarehouseUnitByIdUseCase archiveWarehouseUnitByIdUseCase,
+                               ListAllWarehouseUseCase listAllWarehouseUseCase) {
     this.createWarehouseUseCase = createWarehouseUseCase;
     this.replaceWarehouseUseCase = replaceWarehouseUseCase;
     this.archiveWarehouseUseCase = archiveWarehouseUseCase;
     this.getWarehouseUnitByIdUseCase = getWarehouseUnitByIdUseCase;
     this.archiveWarehouseUnitByIdUseCase = archiveWarehouseUnitByIdUseCase;
+    this.listAllWarehouseUseCase = listAllWarehouseUseCase;
   }
 
   @Override
   public List<Warehouse> listAllWarehousesUnits() {
-    return List.of();
+    return listAllWarehouseUseCase.getAllWarehouses();
   }
 
   @Override

@@ -17,6 +17,8 @@ public class Warehouse {
 
   private ZonedDateTime archivedAt;
 
+  public Warehouse(){}
+
   public Warehouse(String businessUnitCode, String location, Integer capacity,
                    Integer stock, ZonedDateTime creationAt,  ZonedDateTime archivedAt) {
     this.businessUnitCode = businessUnitCode;

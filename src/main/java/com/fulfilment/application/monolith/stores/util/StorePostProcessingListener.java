@@ -10,7 +10,7 @@ import jakarta.inject.Inject;
 public class StorePostProcessingListener {
 
     @Inject
-    StorePostProcessingUtil storePostProcessingUtil;
+    public StorePostProcessingUtil storePostProcessingUtil;
 
     public void afterCommit(@Observes (during =TransactionPhase.AFTER_SUCCESS)
                             StorePostProcessingEvent event) {

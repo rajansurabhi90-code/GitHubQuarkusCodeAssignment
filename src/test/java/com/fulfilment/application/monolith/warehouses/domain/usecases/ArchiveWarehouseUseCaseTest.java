@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @QuarkusTest
 public class ArchiveWarehouseUseCaseTest {
@@ -32,7 +33,7 @@ public class ArchiveWarehouseUseCaseTest {
     public void shouldFailWhenBusinessUnitDoesNotExists() {
         Warehouse warehouse = new Warehouse("MHW.000", "ZWOLLE-001", 10, 10, null, null);
 
-        Mockito.when(warehouseStore.findByBusinessUnitCode("MHW.000"))
+        when(warehouseStore.findByBusinessUnitCode("MHW.000"))
                 .thenReturn(List.of());
 
         RuntimeException ex = assertThrows(RuntimeException.class,
@@ -54,9 +55,9 @@ public class ArchiveWarehouseUseCaseTest {
         existingWarehouses.add(activeWarehouse);
         existingWarehouses.add(archivedWarehouse);
 
-        Mockito.when(warehouseStore.findByBusinessUnitCode("MHW.000"))
+        when(warehouseStore.findByBusinessUnitCode("MHW.000"))
                 .thenReturn(existingWarehouses);
-        Mockito.when(warehouseStore.getActiveWarehouse(existingWarehouses))
+        when(warehouseStore.getActiveWarehouse(existingWarehouses))
                         .thenReturn(activeWarehouse);
 
         archiveWarehouseUseCase.archive(activeWarehouse);
