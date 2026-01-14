@@ -1,5 +1,6 @@
 package com.fulfilment.application.monolith.warehousefullfilment.domain.usecase;
 
+import com.fulfilment.application.monolith.warehousefullfilment.Exception.WarehouseFullfilmentFailedException;
 import com.fulfilment.application.monolith.warehousefullfilment.domain.model.WarehouseFullfilment;
 import com.fulfilment.application.monolith.warehousefullfilment.domain.port.WarehouseFullfilmentStore;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
@@ -32,7 +33,7 @@ public class WarehouseAsFullfilmentUnitsUseCaseTest {
         when(warehouseFullfilmentStore.findNumberofWarehousesForAProductPerStore(wf1))
                 .thenReturn(3L);
 
-        RuntimeException ex = assertThrows(RuntimeException.class,
+        WarehouseFullfilmentFailedException ex = assertThrows(WarehouseFullfilmentFailedException.class,
                 () -> warehouseAsFullfilmentUnitsUseCase.createWarehouseFullfilment(wf1));
 
         assertTrue(ex.getMessage().contains("already assigned to 2 warehouses"));
