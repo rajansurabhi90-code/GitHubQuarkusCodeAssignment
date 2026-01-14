@@ -12,5 +12,5 @@ public interface WarehouseResource {
     void archiveAWarehouseUnitByID(String id);
     Warehouse replaceAWareHouseUnit(@NotNull Warehouse data);
     Warehouse archiveAWareHouseUnit(@NotNull Warehouse data);
-    Warehouse removeAWareHouseUnit(@NotNull Warehouse data);
+    void removeAWareHouseUnit(@NotNull Warehouse data);
 }
