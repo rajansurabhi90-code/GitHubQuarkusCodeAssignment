@@ -70,8 +70,7 @@ public class WarehouseResourceImpl implements WarehouseResource {
   }
 
   @Override
-  public  Warehouse removeAWareHouseUnit(@NotNull Warehouse data) {
+  public void removeAWareHouseUnit(@NotNull Warehouse data) {
     removeWarehouseUseCase.remove(data);
-  return data;
   }
 }

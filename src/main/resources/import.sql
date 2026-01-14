@@ -18,8 +18,8 @@ ALTER SEQUENCE warehouse_seq RESTART WITH 4;
 
 INSERT INTO warehousefullfilment(id, store, product, warehouse, createdAt)
 VALUES (1, 'BESTÅ', 'TONSTAD', 'MWH.001', '2024-07-01');
-INSERT INTO warehouse(id, store, product, warehouse, createdAt
+INSERT INTO warehousefullfilment(id, store, product, warehouse, createdAt)
 VALUES (2, 'BESTÅ', 'KALLAX', 'MWH.001', '2023-07-01');
-INSERT INTO warehouse(id, store, product, warehouse, createdAt)
+INSERT INTO warehousefullfilment(id, store, product, warehouse, createdAt)
 VALUES (3, 'BESTÅ', 'BESTÅ', 'AMSTERDAM-001', '2021-02-01');
 ALTER SEQUENCE warehousefullfilment_seq RESTART WITH 4;
