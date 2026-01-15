@@ -51,6 +51,8 @@ public class WarehouseRepositoryTest {
                 ZonedDateTime.now(), null);
         repository.create(warehouse);
         repository.update(warehouse);
+        repository.create(warehouse);
+
 
         List<Warehouse> all = repository.findAllWarehouses();
         assertEquals(2, all.size());
@@ -122,7 +124,7 @@ public class WarehouseRepositoryTest {
         em.persist(dbWarehouse);
         em.flush();
 
-        Warehouse found = repository.findById(dbWarehouse.getId().toString());
+        DbWarehouse found = repository.findById(dbWarehouse.getId());
         assertNotNull(found);
         assertEquals("Lisbon", found.getLocation());
     }

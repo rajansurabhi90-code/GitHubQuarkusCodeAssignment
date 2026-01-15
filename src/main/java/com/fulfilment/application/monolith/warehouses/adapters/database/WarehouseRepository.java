@@ -18,7 +18,9 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
     @Override
     public void create(Warehouse warehouse) {
         warehouse.setCreationAt(getZonedDateTime());
-        persist(entityFromWareHouse(warehouse));
+        DbWarehouse entity = entityFromWareHouse(warehouse);
+        persist(entity);
+        warehouse.setId(entity.getId());
     }
 
     @NonNull
@@ -28,13 +30,9 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
 
     @Override
     public void update(Warehouse oldWarehouse) {
-       oldWarehouse.setArchivedAt(getZonedDateTime());
-       persist(entityFromWareHouse(oldWarehouse));
-    }
+       DbWarehouse dbWarehouse = findById(oldWarehouse.getId());
+       dbWarehouse.setArchivedAt(LocalDateTime.now());
 
-    @Override
-    public void remove(Warehouse warehouse) {
-      delete(entityFromWareHouse(warehouse));
     }
 
     @Override
@@ -71,12 +69,8 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
     }
 
     @Override
-    public Warehouse findById(String id) {
-        DbWarehouse dbWarehouse =  find("id", id).firstResult();
-        if (dbWarehouse != null) {
-            return warehouseFromEntity(dbWarehouse);
-        }
-        return null;
+    public DbWarehouse findById(String id) {
+        return  find("id", id).firstResult();
     }
 
     @Override
@@ -84,7 +78,12 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
         return getWarehouseList(listAll());
     }
 
-    private DbWarehouse entityFromWareHouse(Warehouse warehouse) {
+    @Override
+    public void remove(DbWarehouse warehouse) {
+        delete(warehouse);
+    }
+
+    public DbWarehouse entityFromWareHouse(Warehouse warehouse) {
         DbWarehouse entity = new DbWarehouse();
         entity.setBusinessUnitCode(warehouse.getBusinessUnitCode());
         entity.setLocation(warehouse.getLocation());
@@ -95,8 +94,10 @@ public class WarehouseRepository implements WarehouseStore, PanacheRepository<Db
         return entity;
     }
 
-    private Warehouse warehouseFromEntity(DbWarehouse dbWarehouse) {
+    @Override
+    public Warehouse warehouseFromEntity(DbWarehouse dbWarehouse) {
         return new Warehouse(
+        dbWarehouse.getId(),
         dbWarehouse.getBusinessUnitCode(), dbWarehouse.getLocation(), dbWarehouse.getCapacity(),
         dbWarehouse.getStock(), dbWarehouse.getCreatedAt().atZone(ZoneOffset.UTC),
         dbWarehouse.getArchivedAt() != null

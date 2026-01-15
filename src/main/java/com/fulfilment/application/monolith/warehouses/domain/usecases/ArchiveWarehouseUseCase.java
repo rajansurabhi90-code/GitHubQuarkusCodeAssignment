@@ -6,6 +6,7 @@ import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.ArchiveWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ public class ArchiveWarehouseUseCase implements ArchiveWarehouseOperation {
   }
 
   @Override
+  @Transactional
   public void archive(Warehouse warehouse) {
     try {
       List<Warehouse> existingWarehouseList = warehouseStore.findByBusinessUnitCode(warehouse.getBusinessUnitCode());

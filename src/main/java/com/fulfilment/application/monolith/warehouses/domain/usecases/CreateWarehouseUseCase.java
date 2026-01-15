@@ -8,6 +8,7 @@ import com.fulfilment.application.monolith.warehouses.domain.ports.CreateWarehou
 import com.fulfilment.application.monolith.warehouses.domain.ports.LocationResolver;
 import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,7 @@ public class CreateWarehouseUseCase implements CreateWarehouseOperation {
   }
 
   @Override
+  @Transactional
   public void create(Warehouse warehouse) {
     try {
       // **Business Unit Code Verification**

@@ -1,6 +1,7 @@
 package com.fulfilment.application.monolith.warehouses.domain.usecases;
 
 import com.fulfilment.application.monolith.warehouses.Exception.WarehouseNotFoundException;
+import com.fulfilment.application.monolith.warehouses.adapters.database.DbWarehouse;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.GetWarehouseByIdOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
@@ -16,11 +17,11 @@ public class GetWarehouseUnitByIdUseCase implements GetWarehouseByIdOperation {
 
     @Override
     public Warehouse getWarehouseUnitById(String id) {
-        Warehouse warehouse = warehouseStore.findById(id);
+        DbWarehouse warehouse = warehouseStore.findById(id);
         if (warehouse == null) {
             throw new WarehouseNotFoundException("No warehouse unit found for given id " + id, 404);
         }
-        return warehouse;
+        return warehouseStore.warehouseFromEntity(warehouse);
     }
 
 }

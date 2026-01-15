@@ -1,6 +1,7 @@
 package com.fulfilment.application.monolith.warehouses.adapters.restapi;
 
 
+import com.fulfilment.application.monolith.warehouses.adapters.database.DbWarehouse;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.usecases.*;
 import io.quarkus.test.InjectMock;
@@ -75,10 +76,8 @@ public class WarehouseResourceImplTest {
 
   @Test
   public void testWhenRemoveAWarehouseUnitSuccess() {
-    Warehouse warehouse = new Warehouse("MHW.000",
-            "ZWOLLE-001", 50, 10, null, null);
-    warehouseResourceImpl.removeAWareHouseUnit(warehouse);
-    verify(removeWarehouseUseCase).remove(warehouse);
+    warehouseResourceImpl.removeAWareHouseUnit(1L);
+    verify(removeWarehouseUseCase).removeById(1L);
   }
 
   @Test

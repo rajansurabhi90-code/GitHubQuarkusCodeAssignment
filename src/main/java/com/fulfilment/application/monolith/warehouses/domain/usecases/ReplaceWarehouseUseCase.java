@@ -9,6 +9,7 @@ import com.fulfilment.application.monolith.warehouses.domain.ports.LocationResol
 import com.fulfilment.application.monolith.warehouses.domain.ports.ReplaceWarehouseOperation;
 import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,7 @@ public class ReplaceWarehouseUseCase implements ReplaceWarehouseOperation {
   }
 
   @Override
+  @Transactional
   public void replace(Warehouse newWarehouse) {
     try {
       // **Business Unit Code Verification**

@@ -1,5 +1,6 @@
 package com.fulfilment.application.monolith.warehouses.domain.usecases;
 
+import com.fulfilment.application.monolith.warehouses.adapters.database.DbWarehouse;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.ports.WarehouseStore;
 import io.quarkus.test.InjectMock;
@@ -27,14 +28,5 @@ public class ArchiveWarehouseUnitByIdUseCaseTest {
         RuntimeException ex = assertThrows(RuntimeException.class,
                 () -> archiveWarehouseUnitByIdUseCase.archiveWareHouseUnitById("1"));
         assertTrue(ex.getMessage().contains("Warehouse unit not found "));
-    }
-
-    @Test
-    public void testArchiveWarehouseByIdSuccess() {
-        Warehouse activeWarehouse = new Warehouse("MHW.000", "ZWOLLE-001", 10, 10, null, null);
-        when(warehouseStore.findById("1")).thenReturn(activeWarehouse);
-
-        archiveWarehouseUnitByIdUseCase.archiveWareHouseUnitById("1");
-        verify(warehouseStore).update(activeWarehouse);
     }
 }

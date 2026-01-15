@@ -6,10 +6,12 @@ package com.fulfilment.application.monolith.warehouses.adapters.restapi;
 import com.fulfilment.application.monolith.warehouses.adapters.WarehouseResource;
 import com.fulfilment.application.monolith.warehouses.domain.models.Warehouse;
 import com.fulfilment.application.monolith.warehouses.domain.usecases.*;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
+@ApplicationScoped
 public class WarehouseResourceImpl implements WarehouseResource {
 
   private final CreateWarehouseUseCase createWarehouseUseCase;
@@ -42,21 +44,18 @@ public class WarehouseResourceImpl implements WarehouseResource {
   }
 
   @Override
-  public Warehouse createANewWarehouseUnit(@NotNull Warehouse data) {
+  public void createANewWarehouseUnit(@NotNull Warehouse data) {
     createWarehouseUseCase.create(data);
-    return data;
   }
 
   @Override
-  public Warehouse replaceAWareHouseUnit(@NotNull Warehouse data) {
+  public void replaceAWareHouseUnit(@NotNull Warehouse data) {
     replaceWarehouseUseCase.replace(data);
-    return data;
   }
 
   @Override
-  public Warehouse archiveAWareHouseUnit(@NotNull Warehouse data) {
+  public void archiveAWareHouseUnit(@NotNull Warehouse data) {
     archiveWarehouseUseCase.archive(data);
-    return data;
   }
 
   @Override
@@ -70,7 +69,7 @@ public class WarehouseResourceImpl implements WarehouseResource {
   }
 
   @Override
-  public void removeAWareHouseUnit(@NotNull Warehouse data) {
-    removeWarehouseUseCase.remove(data);
+  public void removeAWareHouseUnit(@NotNull Long id) {
+    removeWarehouseUseCase.removeById(id);
   }
 }

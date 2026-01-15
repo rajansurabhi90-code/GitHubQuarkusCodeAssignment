@@ -1,8 +1,16 @@
 package com.fulfilment.application.monolith.warehouses.domain.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.ZonedDateTime;
 
 public class Warehouse {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   // unique identifier
   private String businessUnitCode;
@@ -21,6 +29,17 @@ public class Warehouse {
 
   public Warehouse(String businessUnitCode, String location, Integer capacity,
                    Integer stock, ZonedDateTime creationAt,  ZonedDateTime archivedAt) {
+    this.businessUnitCode = businessUnitCode;
+    this.location = location;
+    this.capacity = capacity;
+    this.stock = stock;
+    this.creationAt = creationAt;
+    this.archivedAt = archivedAt;
+  }
+
+  public Warehouse(long id ,String businessUnitCode, String location, Integer capacity,
+                   Integer stock, ZonedDateTime creationAt,  ZonedDateTime archivedAt) {
+    this.id = id;
     this.businessUnitCode = businessUnitCode;
     this.location = location;
     this.capacity = capacity;
@@ -75,5 +94,13 @@ public class Warehouse {
 
   public ZonedDateTime getArchivedAt() {
     return archivedAt;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

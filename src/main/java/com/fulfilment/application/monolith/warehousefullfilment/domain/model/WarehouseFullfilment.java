@@ -17,6 +17,7 @@ public class WarehouseFullfilment {
         this.createdAt = createdAt;
     }
 
+
     public void setBusinessUnitCode(String businessUnitCode) {
         this.businessUnitCode = businessUnitCode;
     }

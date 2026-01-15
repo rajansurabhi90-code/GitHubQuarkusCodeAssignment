@@ -33,12 +33,11 @@ public class RemoveWarehouseUnitCaseTest {
     @Test
     void shouldFailWhenBusinessUnitDoesNotExists() {
         Warehouse warehouse = new Warehouse("MHW.000", "ZWOLLE-001", 10, 10, null, null);
-
         when(warehouseStore.findByBusinessUnitCode("MHW.000"))
                 .thenReturn(List.of());
 
         RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> removeWarehouseUseCase.remove(warehouse));
+                () -> removeWarehouseUseCase.removeById(1L));
 
         assertTrue(ex.getMessage().contains("does not Exists to replace"));
         verify(warehouseStore, never()).create(any());
@@ -51,7 +50,7 @@ public class RemoveWarehouseUnitCaseTest {
         when(locationResolver.resolveByIdentifier("INVALID_LOC")).thenReturn(null);
 
         RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> removeWarehouseUseCase.remove(warehouse));
+                () -> removeWarehouseUseCase.removeById(1L));
 
         assertTrue(ex.getMessage().contains("Doesnt Exist"));
         verify(warehouseStore, never()).create(any());
